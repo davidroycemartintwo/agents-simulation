@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Cache-Control" content="no-store" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <title>Pixel Agents Simulation</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="play-area" aria-label="Simulation">
+        <header class="topbar">
+          <div>
+            <h1>Pixel Agents</h1>
+            <p id="statusLine">Arrow keys act. M+Arrow mates. Ctrl+Arrow picks up or sets down blocks. Shift+Arrow destroys food. Space waits and grants next-turn initiative.</p>
+          </div>
+          <div class="controls">
+            <button id="resetWorld" type="button" title="Generate a new world">Reset</button>
+          </div>
+        </header>
+
+        <div class="canvas-wrap">
+          <canvas id="worldCanvas" width="900" height="900" aria-label="Pixel world"></canvas>
+          <canvas id="effectCanvas" width="900" height="900" aria-hidden="true"></canvas>
+        </div>
+
+        <div class="bottom-controls">
+          <label class="field">
+            <span>Brush</span>
+            <select id="brushSelect">
+              <option value="select">Select</option>
+              <option value="agent">Agent</option>
+              <option value="food">Food</option>
+              <option value="wall">Wall</option>
+              <option value="erase">Erase</option>
+            </select>
+          </label>
+          <span class="hint">Arrow keys: move, attack, or eat. M+Arrow mates. Ctrl+Arrow picks up or sets down blocks. Shift+Arrow destroys food. Space waits and grants initiative.</span>
+        </div>
+      </section>
+
+      <aside class="sidebar" aria-label="Inspector">
+        <section>
+          <h2>World</h2>
+          <dl class="stats-grid">
+            <dt>Turn</dt>
+            <dd id="turnStat">0</dd>
+            <dt>Agents</dt>
+            <dd id="agentStat">0</dd>
+            <dt>Food blocks</dt>
+            <dd id="foodStat">0</dd>
+            <dt>Walls</dt>
+            <dd id="wallStat">0</dd>
+          </dl>
+        </section>
+
+        <section>
+          <h2>Player Unit</h2>
+          <div id="selectionPanel" class="selection-empty">Click an agent, food block, or wall.</div>
+          <div class="direction-pad" aria-label="Directional orders">
+            <button type="button" data-dir="N" title="North">N</button>
+            <button type="button" data-dir="W" title="West">W</button>
+            <button type="button" data-dir="E" title="East">E</button>
+            <button type="button" data-dir="S" title="South">S</button>
+          </div>
+          <button id="waitOrder" class="wide-button" type="button">Wait one turn</button>
+        </section>
+
+        <section>
+          <h2>AI Inputs</h2>
+          <div id="aiPanel" class="ai-panel"></div>
+        </section>
+
+        <section>
+          <h2>Legend</h2>
+          <div class="legend">
+            <span><i class="swatch agent"></i> Agent</span>
+            <span><i class="swatch food"></i> Food</span>
+            <span><i class="swatch wall"></i> Wall</span>
+            <span><i class="swatch selected"></i> Selected</span>
+          </div>
+        </section>
+      </aside>
+    </main>
+
+    <div id="amountDialog" class="modal-backdrop" hidden>
+      <form id="amountForm" class="amount-modal" role="dialog" aria-modal="true" aria-labelledby="amountTitle" novalidate>
+        <h2 id="amountTitle">Food amount</h2>
+        <p id="amountMessage"></p>
+        <label class="field amount-field">
+          <span>Amount</span>
+          <input id="amountInput" type="number" min="1" step="1" />
+          <datalist id="amountOptions"></datalist>
+        </label>
+        <div class="amount-max" id="amountMax"></div>
+        <div class="modal-actions">
+          <button id="amountCancel" type="button">Cancel</button>
+          <button id="amountConfirm" type="submit">Confirm</button>
+        </div>
+      </form>
+    </div>
+
+    <script src="./src/constants.js?v=20260520-scaledinputsa"></script>
+    <script src="./src/random.js?v=20260520-scaledinputsa"></script>
+    <script src="./src/baseAi.js?v=20260520-scaledinputsa"></script>
+    <script src="./src/simulation.js?v=20260520-scaledinputsa"></script>
+    <script src="./src/app.js?v=20260520-scaledinputsa"></script>
+  </body>
+</html>
